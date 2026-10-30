@@ -1,6 +1,7 @@
 package FoSProject;
 import java.util.Random;
-
+// Random number generator der das eingegebene kennzeichen des fahrzeugs als seed nutzt
+// d.h. das selbe eingetragene kennzeichen wird immer die exakt selben random nummbern generieren, zB beim erstellen der special tiles
 
 public class RNGfromHash {
 	private static Random random;
