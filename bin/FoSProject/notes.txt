@@ -1,0 +1,53 @@
+
+Übergabe-Protokoll für die nächste AI (Morgen kopieren)
+
+text
+Hallo! Ich arbeite an einem Java Swing-Projekt für die Schule (ein Grid-basiertes Brettspiel) und brauche Hilfe beim Fortführen. 
+
+Aktueller Stand der Architektur:
+1. Main.java: Startpunkt der Anwendung.
+2. Spielfigur.java: Reines Datenmodell (speichert PosX, PosY, Energie, Energieverbrauch, Spieler-Icon).
+3. Board.java (JFrame): Hauptfenster. Erstellt eine 15x15 Matrix aus JLabels (spielfeldMatrix[Y][X]) mit einem GridLayout. Nutzt BorderLayout (Spielfeld in der Mitte).
+4. MovementGUI.java (JPanel): Steuerungspanel. Liegt im BorderLayout.SOUTH des Boards (eingepackt in ein FlowLayout-Containerpanel zur Größenbeibehaltung). Enthält 4 Richtungstasten, "Anwenden" und "Beenden" sowie TextAreas/Labels für Statuswerte (z. B. txtLeistung).
+
+Aktueller Funktionsstand:
+- Die MovementGUI übergibt 'this' (das Board) im Konstruktor an ihre ActionListener.
+- Die Methode board.bewegeSpieler(deltaX, deltaY) funktioniert fehlerfrei!
+- Die Matrix-Zugriffe sind korrekt als spielfeldMatrix[Y][X] gelöst.
+- Der Pacman-Effekt (Teleportieren am Spielfeldrand mittels `>= BREITE -> 0` und `< 0 -> BREITE - 1`) klappt flüssig.
+- Energie wird pro Schritt abgezogen.
+
+Nächste geplante Schritte im Projekt:
+1. Energie- und Statusanzeige in der GUI synchronisieren: Die TextAreas/Labels in der MovementGUI müssen bei jedem Schritt die aktuelle Energie der Spielfigur live anzeigen (aktuell sieht man es nur in der Konsole).
+2. SpecialTiles.java aufbauen: Eine Logik für besondere Felder (z. B. Hindernisse, Schätze, das Ziel-Schloss).
+3. Spielfeld generieren: Beim Start des Boards zufällig oder fest definiert Spezialfelder auf der spielfeldMatrix verteilen (z. B. Farben ändern oder Icons setzen).
+4. Kollisions- und Effekt-Prüfung: In bewegeSpieler() prüfen, welches Feld betreten wurde, und die entsprechenden Effekte (Punkte hoch, Energie-Bonus/Malus) triggern.
+
+Bitte hilf mir beim nächsten Schritt weiter (z. B. der Synchronisation der GUI-Textfelder mit den Energiewerten oder dem Aufbau der SpecialTiles).
+Verwende Code mit Vorsicht.
+
+🛠️ Deine persönliche To-Do-Liste (Für dich als Übersicht)
+
+Wenn du morgen weitermachst, sind das deine nächsten Handgriffe:
+• Schritt 1: GUI-Werte aktualisieren (Sehr einfach): Deine MovementGUI hat Textfelder wie txtLeistung. Aktuell zieht das Auto zwar Energie ab, aber das Textfeld merkt es nicht. Du brauchst eine Methode in MovementGUI (z. B. updateStatus(int energie)), die du am Ende von bewegeSpieler im Board aufrufst.
+• Schritt 2: Die Spezialfelder erfinden (SpecialTiles.java): Überlege dir, wie du die Felder unterscheidest. Am einfachsten ist eine int-Zahl für den Typ (z. B. 0 = Normal, 1 = Schatz (+Energie), 2 = Falle (-Energie), 3 = Schloss (Sieg)).
+• Schritt 3: Das Brett bestücken: In der Schleife deiner Board.java, wo du die JLabels erstellst, kannst du per Zufall (Math.random()) ein paar Feldern eine andere Hintergrundfarbe geben (z. B. Gelb für Schätze) und diesen Typ im Hintergrund speichern.
+Genieß deinen Feierabend und viel Erfolg morgen beim Weiterprogrammieren! 🚗💨
+
+
+
+Du erstellst eine Blaupause für deine Kachel-Eigenschaften:
+java
+// Ein Record ist eine extrem kurze Klasse für reine Daten
+public record TileInfo(String name, int anzahl, int effektWert) {}
+Verwende Code mit Vorsicht.
+Diese Struktur steckst du dann in eine ganz normale Map. Der Key ist deine ID:
+java
+import java.util.Map;
+
+// Key: ID (Integer) -> Value: Unsere 3 Datenpunkte (TileInfo)
+private final Map<Integer, TileInfo> specialTilesMap = Map.of(
+    1, new TileInfo("Treasure", 5, 100),  // ID 1: Name, Anzahl, Punkte
+    2, new TileInfo("Energie", 4, 50),   // ID 2: Name, Anzahl, Energie-Plus
+    3, new TileInfo("Falle", 3, -30)     // ID 3: Name, Anzahl, Energie-Abzug
+);
