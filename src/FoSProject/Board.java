@@ -29,9 +29,12 @@ public class Board extends javax.swing.JFrame {
 	public static Spielfigur getSpieler() {
 		return spieler;
 	}
-	private MovementGUI steuerung;
-
-
+	
+	public static MovementGUI steuerung;
+	public static  MovementGUI getMovementGUI() {
+		return steuerung;
+	}
+	
 	public static void main(String[] args) {
 		RNGfromHash.init();
 		EventQueue.invokeLater(new Runnable() {
@@ -132,7 +135,8 @@ public class Board extends javax.swing.JFrame {
 		} else {
 			spielfeldMatrix[spieler.getPosY()][spieler.getPosX()].setText("AUTO");
 		}
-		steuerung.updateAnzeigen();
+		//steuerung.updateAnzeigen();
+		MovementGUIUpdate.updateAnzeigen();
 		
 	}
 	public void movementTilesCheck(int neuesX, int neuesY) {

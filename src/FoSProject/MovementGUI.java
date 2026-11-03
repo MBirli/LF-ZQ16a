@@ -24,6 +24,7 @@ public class MovementGUI extends JPanel {
     private JTextField txtY;
     private JTextField txtEnergie;
     private JLabel goldAnzeige;
+    private JTextArea txtAreaNachricht;
 
 	private static final long serialVersionUID = 1L;
 
@@ -197,8 +198,8 @@ public class MovementGUI extends JPanel {
 	    this.add(lblNachricht, gbc_lblNachricht);
 
 	    // Nachricht textarea
-	    JTextArea txtAreaNachricht = new JTextArea();
-	    txtAreaNachricht.setRows(5); 
+	    txtAreaNachricht = new JTextArea("");
+	    txtAreaNachricht.setRows(4); 
 	    GridBagConstraints gbc_txtAreaNachricht = new GridBagConstraints();
 	    gbc_txtAreaNachricht.gridx = 0;
 	    gbc_txtAreaNachricht.gridy = 8;
@@ -238,13 +239,27 @@ public class MovementGUI extends JPanel {
 	    gbc_lblNachricht.insets = new Insets(15, 5, 5, 5); 
 	    this.add(goldAnzeige, gbc_goldAnzeige);
 	    
-	    	    
-	}
+	}/*
 	public void updateAnzeigen() {
 	    txtX.setText("" + Board.getSpieler().getPosX());
 	    txtY.setText("" + Board.getSpieler().getPosY());
 	    txtEnergie.setText("" + Board.getSpieler().getEnergie());
 	    goldAnzeige.setText("Gold: "+ Board.getSpieler().getGold());
+	}*/
+	public void setTxtX(int txtX) {
+		this.txtX.setText("" + txtX);
+	}
+	public void setTxtY(int txtY) {
+		this.txtY.setText("" + txtY);
+	}
+	public void setTxtEnergie(int txtEnergie) {
+		this.txtEnergie.setText("" + txtEnergie);
+	}
+	public void setGoldAnzeige(int goldAnzeige) {
+		this.goldAnzeige.setText(""+ goldAnzeige);
+	}
+	public void setTxtAreaNachricht(String txtAreaNachricht) {
+		this.txtAreaNachricht.setText(txtAreaNachricht);
 	}
 
 	    
