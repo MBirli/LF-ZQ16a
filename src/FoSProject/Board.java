@@ -126,7 +126,7 @@ public class Board extends javax.swing.JFrame {
 		movementTilesCheck(neuesX, neuesY);
 		spieler.setPosX(neuesX);
 		spieler.setPosY(neuesY);
-		System.out.println(RNGfromHash.genNum(100));
+		System.out.println(RNGfromHash.genNum(100)); // eng test
 		if (spieler.getIcon() != null) {
 			spielfeldMatrix[spieler.getPosY()][spieler.getPosX()].setIcon(spieler.getIcon());
 		} else {

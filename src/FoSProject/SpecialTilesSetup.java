@@ -10,22 +10,22 @@ public class SpecialTilesSetup {
 	private Board board;
 
 	private static HashMap<Point, SpecialTile> specialTilesMap = new HashMap<>();
+
 	public SpecialTilesSetup(Board board) {
 		this.board = board;
-	}	
+	}
 
 	public static HashMap<Point, SpecialTile> getSpecialTilesMap() {
 		return specialTilesMap;
 	}
-/*
-	public int rndGridX() {
-		return ThreadLocalRandom.current().nextInt(0, board.getBreite());
-	}
 
-	public int rndGridY() {
-		return ThreadLocalRandom.current().nextInt(0, board.getHoehe());
-	}
-*/
+	/*
+	 * public int rndGridX() { return ThreadLocalRandom.current().nextInt(0,
+	 * board.getBreite()); }
+	 * 
+	 * public int rndGridY() { return ThreadLocalRandom.current().nextInt(0,
+	 * board.getHoehe()); }
+	 */
 	public void generateSpecialTilesInit() {
 		final int[] SPECIAL_TILES_SETUP = { 5, 4 };
 		for (int i = 0; i < SPECIAL_TILES_SETUP.length; i++) {
@@ -44,11 +44,21 @@ public class SpecialTilesSetup {
 							switch (i) {
 							case 0:
 								specialTile = new EnergieTile(200);
-								board.spielfeldMatrix[rndY][rndX].setText("Energie");
+								if (specialTile.getIcon() != null) {
+									board.spielfeldMatrix[rndY][rndX].setIcon(specialTile.getIcon());
+									board.spielfeldMatrix[rndY][rndX].setText("");
+								} else {
+									board.spielfeldMatrix[rndY][rndX].setText("Energie");
+								}
 								break;
 							case 1:
 								specialTile = new TreasureTile(10);
-								board.spielfeldMatrix[rndY][rndX].setText("Treasure");
+								if (specialTile.getIcon() != null) {
+									board.spielfeldMatrix[rndY][rndX].setIcon(specialTile.getIcon());
+									board.spielfeldMatrix[rndY][rndX].setText("");
+								} else {
+									board.spielfeldMatrix[rndY][rndX].setText("Treasure");
+								}
 								break;
 							default:
 								System.out.println("Irgendwas lief schief, fixen bitte!");
